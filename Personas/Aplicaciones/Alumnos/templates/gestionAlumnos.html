@@ -1,0 +1,47 @@
+{% extends "./base.html" %}
+
+{% block title %} Gestión de Alumnos {% endblock %}
+
+{% block body%}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h2>Gestión de Alumnos</h2>
+        <div class="card">
+            <div class="card-body">
+            <form action="/registrarAlumno/" method="POST">{% csrf_token %}
+                <div class="form-group">
+                    <input type="text" name="txtRut" id="txtRut" class="form-control" placeholder="RUT" minlength="5" maxlength="8" required>
+                    <input type="text" name="txtNombre" id="txtNombre" class="form-control" placeholder="Nombre" maxlength="60" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Listado de Alumnos</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Rut</th>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in alumnos %}
+                    <tr>
+                        <td>{{a.rut}}</td>
+                        <td>{{a.nombre}}</td>
+                        <td><a href="edicionAlumno/{{a.rut}}" class="btn btn-info">Editar</a></td>
+                        <td><a href="eliminacionAlumno/{{a.rut}}" class="btn btn-danger">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %} 
